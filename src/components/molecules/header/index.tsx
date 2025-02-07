@@ -10,7 +10,7 @@ export const Header = () => {
   const pathName = usePathname();
 
   return (
-    <header className="flex justify-between gap-5 items-center w-full">
+    <header className="flex justify-between gap-5 items-center w-full mt-14">
       <Link href="/" className="flex gap-1 justify-center items-center">
         <Image src={Logo} alt="book-wise-logo" height={40} width={40} />
         <span className="font-ibm-plex-sans font-semibold text-white text-3xl">
