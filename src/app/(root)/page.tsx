@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button"
+import { BookList, BookOverview } from "@/components/organisms";
 
 function Home() {
   return (
     <>
-    <Button>Click Me</Button>
+      <BookOverview />
+      <BookList />
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;
