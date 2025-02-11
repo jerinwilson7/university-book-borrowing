@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
+import { toast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   DefaultValues,
   FieldValues,
@@ -41,7 +43,27 @@ export const AuthForm = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
+  const router = useRouter();
+
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const response = await onSubmit(data);
+
+    if (response.success) {
+      toast({
+        title: "Success",
+        description: isSignIn
+          ? "You have successfully signed in"
+          : "You have successfully signed up",
+      });
+      router.push("/");
+    } else {
+      toast({
+        title: `Error: ${isSignIn ? "Sign in" : "Sign up"}`,
+        description: response.error ?? "Something went wrong",
+        variant: "destructive",
+      });
+    }
+  };
 
   const isSignIn = type === "SIGN_IN";
 

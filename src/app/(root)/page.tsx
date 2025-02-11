@@ -1,7 +1,15 @@
 import { BookList, BookOverview } from "@/components/organisms";
 import { sampleBooks } from "@/constants";
+import { db } from "../../../database/drizzle";
+import { users } from "../../../database/schema";
 
-function Home() {
+const Home = async () => {
+  try {
+    const result = await db.select().from(users);
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.log("ERROR :", error);
+  }
   return (
     <>
       <BookOverview {...sampleBooks[0]} />
@@ -12,6 +20,6 @@ function Home() {
       />
     </>
   );
-}
+};
 
 export default Home;

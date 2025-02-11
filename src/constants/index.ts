@@ -49,7 +49,7 @@ export const FIELD_NAMES = {
 };
 
 export const FIELD_TYPES = {
-  fullName: "text",
+  fullname: "text",
   email: "email",
   universityId: "number",
   password: "password",
