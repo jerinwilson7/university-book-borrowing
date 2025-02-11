@@ -3,13 +3,21 @@
 import { signIn } from "@/auth";
 import { hash } from "bcryptjs";
 import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { db } from "../../../database/drizzle";
 import { users } from "../../../database/schema";
+import ratelimit from "../redis/ratelimit";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">
 ) => {
   const { email, password } = params;
+
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) return redirect("/too-fast");
 
   try {
     const result = await signIn("credentials", {
@@ -23,13 +31,20 @@ export const signInWithCredentials = async (
     }
     return { success: true };
   } catch (error) {
-    console.log(error, "Sign in error");
+    console.log("Sign in error", error);
     return { success: false, error: "Invalid email or password sign in error" };
   }
 };
 
 export const signUp = async (params: AuthCredentials) => {
   const { email, fullName, password, universityCard, universityId } = params;
+
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return redirect("/too-fast");
+  }
 
   const existingUser = await db
     .select()
@@ -56,6 +71,6 @@ export const signUp = async (params: AuthCredentials) => {
 
     return { success: true };
   } catch (error) {
-    return { success:false, error: "Sign up error" };
+    return { success: false, error: "Sign up error" };
   }
 };

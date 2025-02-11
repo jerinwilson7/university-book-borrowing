@@ -12,7 +12,7 @@ const Home = async () => {
   }
   return (
     <>
-      <BookOverview {...sampleBooks[0]} />
+      <BookOverview {...sampleBooks[7]} />
       <BookList
         books={sampleBooks}
         containerClassName="mt-28"

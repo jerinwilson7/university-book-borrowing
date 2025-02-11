@@ -7,6 +7,10 @@ export const config = {
       urlEndpoint: process.env.NEXT_PUBLIC_IMAGE_KIT_URL_ENDPOINT!,
       privateKey: process.env.IMAGE_KIT_PRIVATE_KEY!,
     },
+    upstash: {
+      redisUrl: process.env.UPSTASH_REDIS_URL!,
+      redisToken: process.env.UPSTASH_REDIS_TOKEN!,
+    },
   },
 };
 
