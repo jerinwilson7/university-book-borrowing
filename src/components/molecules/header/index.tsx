@@ -1,12 +1,18 @@
 "use client";
 
 import { Logo } from "@/assets/icons";
-import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { cn, getInitials } from "@/lib/utils";
+import { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export const Header = () => {
+interface HeaderProps {
+  session: Session;
+}
+
+export const Header = ({ session }: HeaderProps) => {
   const pathName = usePathname();
 
   return (
@@ -17,7 +23,7 @@ export const Header = () => {
           BookWise
         </span>
       </Link>
-      <ul className="flex gap-8">
+      <ul className="flex gap-8 items-center">
         <li>
           <Link
             href="/"
@@ -35,6 +41,18 @@ export const Header = () => {
             className="text-light-100 text-base cursor-pointer capitalize"
           >
             Search
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/my-profile"
+            className="text-light-100 text-base cursor-pointer capitalize"
+          >
+            <Avatar>
+              <AvatarFallback className="bg-amber-100 text-blue-950">
+                {getInitials(session.user?.name ?? "IN")}
+              </AvatarFallback>
+            </Avatar>
           </Link>
         </li>
       </ul>
