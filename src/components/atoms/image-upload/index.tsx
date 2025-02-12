@@ -13,7 +13,9 @@ interface ImageUploadProps {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/auth/image-kit`);
+    const response = await fetch(
+      `${config.env.apiEndpoint}/api/auth/image-kit`
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
