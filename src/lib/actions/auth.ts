@@ -7,7 +7,9 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "../../../database/drizzle";
 import { users } from "../../../database/schema";
+import config from "../config";
 import ratelimit from "../redis/ratelimit";
+import { workflowClient } from "../workflow/workflow";
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">
@@ -65,6 +67,14 @@ export const signUp = async (params: AuthCredentials) => {
       password: hashedPassword,
       universityCard,
       universityId,
+    });
+
+    await workflowClient.trigger({
+      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
+      body: {
+        email,
+        fullName,
+      },
     });
 
     await signInWithCredentials({ email, password });
