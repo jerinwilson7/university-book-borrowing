@@ -1,4 +1,4 @@
-import { Sidebar } from "@/admin-components/molecules";
+import { AdminHeader, Sidebar } from "@/admin-components/molecules";
 import { auth } from "@/auth";
 import "@/styles/admin.css";
 import { redirect } from "next/navigation";
@@ -12,7 +12,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     <main className="flex min-h-screen w-full">
       <Sidebar session={session} />
       <div className="admin-container">
-        <p>Header</p>
+        <AdminHeader session={session} />
         {children}
       </div>
     </main>
