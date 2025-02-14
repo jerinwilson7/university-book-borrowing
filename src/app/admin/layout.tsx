@@ -1,4 +1,4 @@
-import { AdminHeader, Sidebar } from "@/admin-components/molecules";
+import { AdminHeader, Sidebar } from "@/components/admin-components/molecules";
 import { auth } from "@/auth";
 import "@/styles/admin.css";
 import { redirect } from "next/navigation";
