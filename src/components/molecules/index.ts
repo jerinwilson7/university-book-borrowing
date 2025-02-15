@@ -1,3 +1,5 @@
 export * from "./book-card";
 export * from "./book-cover";
-export * from "./header";
+export * from "./color-picker";
+export * from "./file-upload";
+
