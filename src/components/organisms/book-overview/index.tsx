@@ -4,20 +4,25 @@ import { BookCover } from "@/components/molecules";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
+interface BookOverviewProps extends Book {
+  userId: string;
+}
+
 export const BookOverview = ({
   author,
-  available_copies,
-  color,
-  cover,
+  availableCopies,
+  coverColor,
+  coverUrl,
   description,
   genre,
   id,
   rating,
   summary,
   title,
-  total_copies,
-  video,
-}: Book) => {
+  totalCopies,
+  videoUrl,
+  userId,
+}: BookOverviewProps) => {
   return (
     <section className="book-overview">
       <div className="flex flex-col gap-7 flex-1">
@@ -29,8 +34,8 @@ export const BookOverview = ({
         </div>
 
         <div className="book-copies">
-          <BookInfo label="Total Books" value={String(total_copies)} />
-          <BookInfo label="Available Books" value={String(available_copies)} />
+          <BookInfo label="Total Books" value={String(totalCopies)} />
+          <BookInfo label="Available Books" value={String(availableCopies)} />
         </div>
 
         <p className="book-description">{description}</p>
@@ -48,16 +53,16 @@ export const BookOverview = ({
           <BookCover
             variant="wide"
             className="z-10"
-            coverColor={color}
-            coverUrl={cover}
+            coverColor={coverColor}
+            coverUrl={coverUrl}
           />
         </div>
         <div className="absolute opacity-60 right-10 rotate-12 top-4 blur-sm hidden xl:block">
           <BookCover
             variant="wide"
             className="z-10"
-            coverColor={color}
-            coverUrl={cover}
+            coverColor={coverColor}
+            coverUrl={coverUrl}
           />
         </div>
       </div>

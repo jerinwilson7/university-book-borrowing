@@ -11,6 +11,7 @@ export const BookList = ({
   containerClassName,
   title,
 }: BookListProps) => {
+  if (books.length < 2) return;
   return (
     <section className={containerClassName}>
       <h1 className="font-bebas-neue text-4xl text-light-100 ">{title}</h1>
@@ -19,6 +20,7 @@ export const BookList = ({
           <BookCard key={book.title} {...book} />
         ))}
       </ul>
+      )
     </section>
   );
 };

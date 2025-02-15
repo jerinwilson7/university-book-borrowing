@@ -6,18 +6,18 @@ import Link from "next/link";
 import { BookCover } from "../book-cover";
 
 export const BookCard = ({
-  color,
+  coverColor,
   title,
   author,
   genre,
-  cover,
-  available_copies,
+  coverUrl,
+  availableCopies,
   description,
   id,
   rating,
   summary,
-  total_copies,
-  video,
+  totalCopies,
+  videoUrl,
   isLoanedBook = false,
 }: Book) => {
   return (
@@ -26,7 +26,7 @@ export const BookCard = ({
         href={`/books/${id}`}
         className={cn("w-full flex flex-col items-center")}
       >
-        <BookCover coverColor={color} coverUrl={cover} className="" />
+        <BookCover coverColor={coverColor} coverUrl={coverUrl} className="" />
         <div className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}>
           <p className="book-title">{title}</p>
           <p className="book-genre">{genre}</p>
