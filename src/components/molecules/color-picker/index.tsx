@@ -7,7 +7,10 @@ interface ColorPickerProps {
   onPickerChange: (color: string) => void;
 }
 
-export const ColorPicker = ({ onPickerChange, value }: ColorPickerProps) => {
+export const ColorPicker = ({
+  onPickerChange,
+  value = "ffffff",
+}: ColorPickerProps) => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center">
