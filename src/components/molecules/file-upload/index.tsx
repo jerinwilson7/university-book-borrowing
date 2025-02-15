@@ -64,6 +64,8 @@ export const FileUpload = ({
   });
   const [progress, setProgress] = useState(0);
 
+  console.log("PROGRESS", progress);
+
   const styles = {
     button:
       variant === "dark"
@@ -142,7 +144,7 @@ export const FileUpload = ({
         accept={accept}
         onUploadStart={() => setProgress(0)}
         onUploadProgress={({ loaded, total }) => {
-          const percent = Math.round(loaded / total) * 100;
+          const percent = Math.round((loaded / total) * 100);
           setProgress(percent);
         }}
       />
@@ -173,9 +175,8 @@ export const FileUpload = ({
         </div>
       )}
 
-      {file &&
+      {file.filePath &&
         (type === "image" ? (
-        
           <IKImage
             alt={file.filePath!}
             path={file.filePath!}
