@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageUpload } from "@/components/atoms";
+import { FileUpload } from "@/components/molecules";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -96,7 +96,7 @@ export const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === "universityCard" ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload type="image" accept="image/*" placeholder="upload your ID" folder="ids" variant="dark"  onFileChange={field.onChange}  />
                     ) : (
                       <Input
                         className="form-input"
