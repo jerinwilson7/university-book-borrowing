@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { Header } from "@/components/molecules";
+import { Header } from "@/components/molecules/header";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
