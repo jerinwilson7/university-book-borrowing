@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { ColorPicker, FileUpload } from "@/components/molecules";
 import { Button } from "@/components/ui/button";
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/hooks/use-toast";
+import { createBook } from "@/lib/admin/actions/book";
 import { BookForm as BookFormDTO, bookSchema } from "@/schema/book";
 import { useRouter } from "next/navigation";
 
@@ -42,9 +43,23 @@ export const BookForm = ({ type, ...book }: Props) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof bookSchema>) => {
-    console.log("BOOK FORM :",values);
-  }
+  const onSubmit = async (values: BookFormDTO) => {
+    const result = await createBook(values);
+
+    if (result.success) {
+      toast({
+        title: `Book created successfully`,
+        description: `${values.title} has been added to the library`,
+      });
+      router.push(`/admin/books/${result.data.id}`);
+    } else {
+      toast({
+        title: `Error creating book`,
+        description: result.message,
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <Form {...form}>
@@ -188,7 +203,10 @@ export const BookForm = ({ type, ...book }: Props) => {
                 Primary Color
               </FormLabel>
               <FormControl>
-                <ColorPicker onPickerChange={field.onChange} value={field.value} />
+                <ColorPicker
+                  onPickerChange={field.onChange}
+                  value={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -263,6 +281,4 @@ export const BookForm = ({ type, ...book }: Props) => {
       </form>
     </Form>
   );
-
-}
-
+};
