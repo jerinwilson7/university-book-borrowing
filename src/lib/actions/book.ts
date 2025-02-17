@@ -1,10 +1,9 @@
 "use server";
 
-import { borrowRecords } from "@/schema/book";
 import dayjs from "dayjs";
 import { eq } from "drizzle-orm";
 import { db } from "../../../database/drizzle";
-import { books } from "../../../database/schema";
+import { books, borrowRecords } from "../../../database/schema";
 
 export const borrowBook = async ({ bookId, userId }: BorrowBookParams) => {
   try {
