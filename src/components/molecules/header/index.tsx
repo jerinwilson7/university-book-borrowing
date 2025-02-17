@@ -1,20 +1,18 @@
 "use client";
 
 import { Logo } from "@/assets/icons";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { cn, getInitials } from "@/lib/utils";
+import { signOut } from "@/auth";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 interface HeaderProps {
   session: Session;
 }
 
 export const Header = ({ session }: HeaderProps) => {
-  const pathName = usePathname();
-
   return (
     <header className="flex justify-between gap-5 items-center w-full mt-14">
       <Link href="/" className="flex gap-1 justify-center items-center">
@@ -27,10 +25,7 @@ export const Header = ({ session }: HeaderProps) => {
         <li>
           <Link
             href="/"
-            className={cn(
-              "text-base cursor-pointer capitalize",
-              pathName === "/" ? "text-light-200" : "text-light-100"
-            )}
+            className={cn("text-base cursor-pointer capitalize text-light-200")}
           >
             Home
           </Link>
@@ -43,7 +38,7 @@ export const Header = ({ session }: HeaderProps) => {
             Search
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             href="/my-profile"
             className="text-light-100 text-base cursor-pointer capitalize"
@@ -54,6 +49,15 @@ export const Header = ({ session }: HeaderProps) => {
               </AvatarFallback>
             </Avatar>
           </Link>
+        </li> */}
+        <li>
+          <form
+            action={async () => {
+              await signOut();
+            }}
+          >
+            <Button>Logout</Button>
+          </form>
         </li>
       </ul>
     </header>

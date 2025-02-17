@@ -1,14 +1,15 @@
 import { Book, Star } from "@/assets/icons";
-import { BookInfo } from "@/components/atoms";
+import { BookInfo, BorrowBookBtn } from "@/components/atoms";
 import { BookCover } from "@/components/molecules";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { eq } from "drizzle-orm";
+import { db } from "../../../../database/drizzle";
+import { users } from "../../../../database/schema";
 
 interface BookOverviewProps extends Book {
   userId: string;
 }
 
-export const BookOverview = ({
+export const BookOverview = async ({
   author,
   availableCopies,
   coverColor,
@@ -23,6 +24,22 @@ export const BookOverview = ({
   videoUrl,
   userId,
 }: BookOverviewProps) => {
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1);
+
+  if (!user) return null;
+
+  const borrowingEligibility = {
+    isEligible: availableCopies > 0 && user.status === "APPROVED",
+    message:
+      availableCopies <= 0
+        ? "Book is out of stock"
+        : "You are not eligible to borrow this book",
+  };
+
   return (
     <section className="book-overview">
       <div className="flex flex-col gap-7 flex-1">
@@ -40,12 +57,11 @@ export const BookOverview = ({
 
         <p className="book-description">{description}</p>
 
-        <Button className="book-overview_btn">
-          <Image width={20} height={20} src={Book} alt="Book" />
-          <span className="font-bebas-neue text-xl text-dark-100 ">
-            BORROW BOOK REQUEST
-          </span>
-        </Button>
+        <BorrowBookBtn
+          userId={userId}
+          bookId={id}
+          borrowingEligibility={borrowingEligibility}
+        />
       </div>
 
       <div className="relative flex flex-1 justify-center">
