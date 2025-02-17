@@ -2,7 +2,7 @@ export const config = {
   env: {
     apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT!,
     prodApiEndpoint: process.env.NEXT_PUBLIC_PROD_API_ENDPOINT!,
-    databaseUrl: process.env.DATABASE_URL!,
+    databaseUrl: process.env.NEXT_PUBLIC_DATABASE_URL!,
     resendToken: process.env.RESEND_TOKEN!,
     imageKit: {
       publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY!,
