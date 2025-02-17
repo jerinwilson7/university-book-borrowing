@@ -1,9 +1,7 @@
-"use client";
-
-import { Logo } from "@/assets/icons";
+import { Logo, LogOutIcon } from "@/assets/icons";
 import { signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { cn, getInitials } from "@/lib/utils";
 import { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,14 +12,11 @@ interface HeaderProps {
 
 export const Header = ({ session }: HeaderProps) => {
   return (
-    <header className="flex justify-between gap-5 items-center w-full mt-14">
-      <Link href="/" className="flex gap-1 justify-center items-center">
-        <Image src={Logo} alt="book-wise-logo" height={40} width={40} />
-        <span className="font-ibm-plex-sans font-semibold text-white text-3xl">
-          BookWise
-        </span>
+    <header className="my-10 flex justify-between gap-5">
+      <Link href="/">
+        <Image src={Logo} alt="logo" width={40} height={40} />
       </Link>
-      <ul className="flex gap-8 items-center">
+      <ul className="flex flex-row items-center justify-center gap-8">
         <li>
           <Link
             href="/"
@@ -38,25 +33,38 @@ export const Header = ({ session }: HeaderProps) => {
             Search
           </Link>
         </li>
-        {/* <li>
+        <li>
           <Link
             href="/my-profile"
-            className="text-light-100 text-base cursor-pointer capitalize"
+            className="text-light-100 text-sm cursor-pointer capitalize flex gap-1.5 items-center justify-center"
           >
             <Avatar>
-              <AvatarFallback className="bg-amber-100 text-blue-950">
+              <AvatarFallback className="bg-blue-300 text-blue-950">
                 {getInitials(session.user?.name ?? "IN")}
               </AvatarFallback>
             </Avatar>
+            <p className="font-semibold text-blue-200 text-xl capitalize ">
+              {session.user?.name?.split(" ")[0]}
+            </p>
           </Link>
-        </li> */}
+        </li>
         <li>
           <form
             action={async () => {
+              "use server";
+
               await signOut();
             }}
+            className=""
           >
-            <Button>Logout</Button>
+            <button>
+              <Image
+                src={LogOutIcon}
+                alt="logout icon"
+                width={24}
+                height={24}
+              />
+            </button>
           </form>
         </li>
       </ul>
