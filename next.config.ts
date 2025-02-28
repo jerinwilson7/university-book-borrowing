@@ -14,12 +14,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "ik.imagekit.io",
-        port: "",
       },
       {
         protocol: "https",
         hostname: "ik.imagekit.io",
-        port: "",
       },
     ],
   },
@@ -28,6 +26,18 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  webpack: (config) => {
+    // Ignore non-code files from Zoho SDK
+    config.module.rules.push({
+      test: /\.(md|txt|map|LICENSE)$/,
+      type: "asset/source",
+    });
+
+    return config;
+  },
+  experimental: {
+    serverComponentsExternalPackages: ["@zohocrm/typescript-sdk-2.0"],
   },
 };
 
