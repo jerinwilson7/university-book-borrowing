@@ -1,6 +1,6 @@
-import { Environment } from "@zohocrm/typescript-sdk-2.0/routes/dc/environment";
-import { USDataCenter } from "@zohocrm/typescript-sdk-2.0/routes/dc/us_data_center";
+import { INDataCenter } from "@zohocrm/typescript-sdk-2.0/routes/dc/in_data_center";
 import { LogBuilder } from "@zohocrm/typescript-sdk-2.0/routes/logger/log_builder";
+
 import {
   Levels,
   Logger,
@@ -25,4 +25,5 @@ export let user: UserSignature = new UserSignature("jerin.wilson@gmail.com");
  * Available Domains: USDataCenter, EUDataCenter, INDataCenter, CNDataCenter, AUDataCenter
  * Available Environments: PRODUCTION(), DEVELOPER(), SANDBOX()
  */
-let environment: Environment = USDataCenter.PRODUCTION();
+// let environment: Environment = USDataCenter.PRODUCTION();
+const environment = INDataCenter.PRODUCTION();
