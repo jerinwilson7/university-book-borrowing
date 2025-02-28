@@ -15,6 +15,14 @@ export const config = {
       qstashUrl: process.env.QSTASH_URL!,
       qstashToken: process.env.QSTASH_TOKEN!,
     },
+    zoho: {
+      clientId: process.env.ZOHO_CLIENT_ID!,
+      clientSecret: process.env.ZOHO_CLIENT_SECRET!,
+      redirectURL: process.env.ZOHO_REDIRECT_URL!,
+      refreshToken: process.env.ZOHO_REFRESH_TOKEN!,
+      accessToken: process.env.ZOHO_ACCESS_TOKEN!,
+      grantToken: process.env.ZOHO_GRANT_TOKEN!,
+    },
   },
 };
 
